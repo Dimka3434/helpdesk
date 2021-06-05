@@ -41,7 +41,7 @@
                                 @endswitch
                             </li>
                             @if($problem->status && $problem->performer)
-                                Исполнитель {{ $problem->performer->name }}
+                                <li>Исполнитель: {{ $problem->performer->name }}</li>
                             @endif
                         </ul>
                     </div>
