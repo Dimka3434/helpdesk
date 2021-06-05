@@ -51,6 +51,14 @@
                             @if(isset($problem->time_spent))
                                 <li>Затрачено времени: {{$problem->time_spent}} часов</li>
                             @endif
+                            @if(isset($problem->priority))
+                                <li>
+                                    Приоритет:
+                                    @if($problem->priority == 0)Низкий@endif
+                                    @if($problem->priority == 1)Средний@endif
+                                    @if($problem->priority == 2)Высокий@endif
+                                </li>
+                            @endif
                         </ul>
                     </div>
                     @if ($problem->status === 0 || $problem->status === 1)
