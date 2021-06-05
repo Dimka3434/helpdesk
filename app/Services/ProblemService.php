@@ -99,7 +99,7 @@ class ProblemService
      * @param int $id
      * @param string $commentary
      */
-    public function makeProblemDone(int $id, string $commentary)
+    public function makeProblemDone(int $id, string $commentary='')
     {
         $problem = $this->model->newQuery()
             ->where('id', $id)
@@ -223,6 +223,7 @@ class ProblemService
         return $this->model->newQuery()
             ->where('performer_id', $performerId)
             ->where('status', Problem::STATUS_ASSIGNED_PERFORMER)
+            ->orWhere('status', Problem::STATUS_UNDERWAY)
             ->orderByDesc('created_at')
             ->get();
     }

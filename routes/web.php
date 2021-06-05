@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('categories', CategoryController::class);
 
     Route::prefix('performer')->name('performers.')->group(function () {
-        Route::get('problems', [ProblemController::class, 'getAssignedProblems']);
+        Route::get('problems', [ProblemController::class, 'getAssignedProblems'])->name('problems');
     });
 
     Route::prefix('/account')->namespace('Auth')->name('account.')->group(function () {

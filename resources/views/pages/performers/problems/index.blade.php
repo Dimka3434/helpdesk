@@ -7,6 +7,13 @@
 @section('content')
     <div class="row justify-content-center w-100">
         <div class="col-md-12">
+            @if (!$problems->count())
+                <div class="card w-100 mt-3">
+                    <div class="card-body">
+                        Заявок пока не поступало
+                    </div>
+                </div>
+            @endif
             @foreach($problems as $problem)
                 <div class="card w-100 mt-3">
                     <div class="card-body">

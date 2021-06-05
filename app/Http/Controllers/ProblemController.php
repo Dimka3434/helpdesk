@@ -6,8 +6,6 @@ use App\Http\Requests\CloseProblemRequest;
 use App\Http\Requests\MakeProblemDoneRequest;
 use App\Http\Requests\MakeProblemUnderwayRequest;
 use App\Http\Requests\Problem\AssignPerformerRequest;
-use App\Http\Requests\Problem\StoreProblemRequest;
-use App\Http\Requests\Problem\UpdateProblemRequest;
 use App\Services\ProblemService;
 use App\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 /**
  * Class ProblemController
@@ -71,7 +68,7 @@ class ProblemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return RedirectResponse
      */
@@ -104,7 +101,7 @@ class ProblemController extends Controller
         $data = $request->validated();
         $this->problemService->makeProblemUnderway($data['problem_id']);
 
-        return redirect()->route('problems.index');
+        return redirect()->route('performers.problems');
     }
 
     /**
@@ -115,9 +112,9 @@ class ProblemController extends Controller
     public function makeProblemDone(MakeProblemDoneRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $this->problemService->makeProblemDone($data['problem_id'], $data['commentary']);
+        $this->problemService->makeProblemDone($data['problem_id'], $data['commentary'] ?? '');
 
-        return redirect()->route('problems.index');
+        return redirect()->route('performers.problems');
     }
 
     /**

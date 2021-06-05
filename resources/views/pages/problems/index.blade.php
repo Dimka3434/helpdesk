@@ -15,6 +15,13 @@
                 </select>
                 <button class="btn btn-success text-white">Выбрать</button>
             </form>
+            @if (!$problems->count())
+                <div class="card w-100 mt-3">
+                    <div class="card-body">
+                        Заявок пока не поступало
+                    </div>
+                </div>
+            @endif
             @foreach($problems as $problem)
                 <div class="card w-100 mt-3">
                     <div class="card-body">
