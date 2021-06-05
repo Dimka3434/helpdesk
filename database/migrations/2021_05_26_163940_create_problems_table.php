@@ -19,10 +19,12 @@ class CreateProblemsTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('subcategory_id');
             $table->foreign('subcategory_id')->references('id')->on('subcategories')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('performer_id')->constrained('users', 'id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('performer_id')->nullable()->constrained('users', 'id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('description');
+            $table->string('contacts')->nullable();
             $table->string('place');
             $table->unsignedTinyInteger('status')->default(Problem::STATUS_OPENED);
+            $table->unsignedTinyInteger('priority')->default(0);
             $table->string('commentary')->nullable();
             $table->timestamps();
         });

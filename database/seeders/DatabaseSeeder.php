@@ -41,10 +41,24 @@ class DatabaseSeeder extends Seeder
         }
 
         User::create([
-            'name' => 'Диспетчер',
+            'name' => 'Диспетчер Настя',
             'email' => 'admin@admin.ru',
             'password' => Hash::make('111111'),
             'type' => User::TYPE_DISPATCHER,
+        ]);
+
+        User::create([
+            'name' => 'Исполнитель Петр',
+            'email' => 'performer@performer.ru',
+            'password' => Hash::make('111111'),
+            'type' => User::TYPE_PERFORMER,
+        ]);
+
+        User::create([
+            'name' => 'Пользователь Вася',
+            'email' => 'user@user.ru',
+            'password' => Hash::make('111111'),
+            'type' => User::TYPE_USER,
         ]);
     }
 }

@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     const TYPE_DISPATCHER = 0;
-    const TYPE_PERFORMED = 1;
+    const TYPE_PERFORMER = 1;
     const TYPE_USER = 2;
 
     /**

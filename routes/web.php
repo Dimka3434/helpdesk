@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
     Route::apiResource('users', UserController::class);
 
+    Route::put('close', [ProblemController::class, 'closeProblem'])->name('problems.close');
     Route::put('problems/{id}/performer', [ProblemController::class, 'assignPerformer'])->name('problems.assign_performer');
     Route::apiResource('problems', ProblemController::class);
 

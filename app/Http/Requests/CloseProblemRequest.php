@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Problem;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AssignPerformerRequest extends FormRequest
+class CloseProblemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class AssignPerformerRequest extends FormRequest
     public function rules()
     {
         return [
-            'performer_id' => 'numeric|exists:users,id',
-            'problem_id' => 'numeric|exists:problems,id',
-            'prio'
+            'problem_id' => 'required|numeric|exists:problems,id',
+            'commentary' => 'nullable|string',
         ];
     }
 }

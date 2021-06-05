@@ -50,7 +50,7 @@ class UserService
     public function getPerformers()
     {
         return $this->model->newQuery()
-            ->where('type', User::TYPE_PERFORMED)
+            ->where('type', User::TYPE_PERFORMER)
             ->get();
     }
 }

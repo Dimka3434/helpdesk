@@ -11,6 +11,7 @@
                 <div class="card w-100 mt-3">
                     <div class="card-body">
                         <ul>
+                            <li>Пользователь: <a href="{{route('users.show', $problem->user->id)}}">{{ $problem->user->name }}</a></li>
                             <li>Категория: {{ $problem->subcategory->title }}</li>
                             <li>Местоположение: {{ $problem->place }}</li>
                             <li>Описание: {{ $problem->description }}</li>
@@ -50,10 +51,30 @@
                                         <option @if($problem->performer_id == $performer->id) selected @endif value="{{$performer->id}}">{{$performer->name}}</option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-success text-white">Назначить</button>
+                                <select class="form-control d-inline " style="width: 10%" name="priority">
+                                    <option @if($problem->priority == 0) selected @endif value="0">Низкий</option>
+                                    <option @if($problem->priority == 1) selected @endif value="1">Средний</option>
+                                    <option @if($problem->priority == 2) selected @endif value="2">Высокий</option>
+                                </select>
+                                <button class="btn btn-success text-white">@if($problem->performer_id) Переназначить @else Назначить @endif</button>
                             </form>
                         </div>
                     </div>
+                    @if(!$problem->performer_id)
+                    <div class="card-footer">
+                        <div class="inline-form">
+                            <form action="{{ route('problems.close') }}" method="POST">
+                                @method("PUT")
+                                @csrf
+                                <div class="input-group w-50">
+                                    <textarea type="text" name="commentary" class="form-control" placeholder="Введите коментарий"></textarea>
+                                    <button class="btn btn-danger text-white">Закрыть заявку</button>
+                                </div>
+                                <input type="hidden" name="problem_id" value="{{$problem->id}}">
+                            </form>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             @endforeach
         </div>

@@ -15,45 +15,39 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Helpdesk') }}
+                {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false">
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form action="{{ route('complains.search') }}">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="input-group">
-                        <input type="text" name="id" class="form-control" placeholder="Номер заявки">
-                        <button class="btn btn-info text-white">Проверить заявку</button>
-                </div>
+                <ul class="navbar-nav mr-auto">
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">Войти в систему</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            {{ Auth::user()->name }}
+                        </li>
+                    @endguest
+                </ul>
             </div>
-            </form>
         </div>
     </nav>
-    <main class="container">
-        <div class="row mt-2">
-            <div class="col"></div>
-            <div class="col-8">
-                <div class="card w-100">
-                    @if (View::hasSection('header'))
-                    <div  class="card-header">
-                        @yield('header')
-                    </div>
-                    @endif
-                    <div class="card-body">
-                        @yield('content')
-                    </div>
-                    @if (View::hasSection('footer'))
-                    <div class="card-footer">
-                        @yield('footer')
-                    </div>
-                    @endif
-                </div>
+    <div class="container-fluid">
+        <main class=" ms-sm-auto col-lg-12">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                @yield('content')
             </div>
-            <div class="col"></div>
-        </div>
-    </main>
+        </main>
+    </div>
 </div>
 </body>
 </html>

@@ -56,7 +56,7 @@ class ProblemController extends Controller
             $request->validated()
         );
 
-        return redirect()->back()->with('success', 'Ваша заявка о проблему успешно создана. Номер заявки: ' . $problem->id);
+        return redirect()->route('account.problems.index');
     }
 
     /**

@@ -17,6 +17,7 @@ class CreateUserProblemTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('problem_id')->constrained('problems');
+            $table->string('position')->default('');
             $table->unsignedTinyInteger('priority');
         });
     }

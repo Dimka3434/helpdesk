@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CloseProblemRequest;
 use App\Http\Requests\Problem\AssignPerformerRequest;
 use App\Http\Requests\Problem\StoreProblemRequest;
 use App\Http\Requests\Problem\UpdateProblemRequest;
@@ -14,14 +15,28 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+/**
+ * Class ProblemController
+ *
+ * @package App\Http\Controllers
+ */
 class ProblemController extends Controller
 {
     /**
      * @var ProblemService $problemService
      */
     private ProblemService $problemService;
+    /**
+     * @var UserService
+     */
     private UserService $userService;
 
+    /**
+     * ProblemController constructor.
+     *
+     * @param ProblemService $problemService
+     * @param UserService $userService
+     */
     public function __construct(ProblemService $problemService, UserService $userService)
     {
         $this->problemService = $problemService;
@@ -99,9 +114,27 @@ class ProblemController extends Controller
         return redirect()->route('problems.index');
     }
 
-    public function assignPerformer(AssignPerformerRequest $request)
+    /**
+     * @param AssignPerformerRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function assignPerformer(AssignPerformerRequest $request): RedirectResponse
     {
-        $this->problemService->assignToPerformer($request->problem_id, $request->performer_id);
+        $this->problemService->assignToPerformer($request->problem_id, $request->performer_id, $request->priority);
+
+        return redirect()->route('problems.index');
+    }
+
+    /**
+     * @param CloseProblemRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function closeProblem(CloseProblemRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->problemService->closeProblem($data['problem_id'], $data['commentary']);
 
         return redirect()->route('problems.index');
     }

@@ -27,6 +27,7 @@ class StoreProblemRequest extends FormRequest
             'subcategory_id' => 'required|exists:subcategories,id',
             'place' => 'required|string|min:5',
             'description' => 'nullable|string|min:10',
+            'contacts' => 'nullable|string|min:10',
         ];
     }
 
@@ -36,6 +37,7 @@ class StoreProblemRequest extends FormRequest
             'subcategory_id' => 'категория',
             'place' => 'местонахождение',
             'description' => 'Описание проблемы',
+            'contacts' => 'Контактные данные',
         ];
     }
 }
