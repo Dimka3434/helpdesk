@@ -43,7 +43,7 @@ class ProblemController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Показать список проблем
      *
      * @return Application|Factory|View
      */
@@ -56,7 +56,7 @@ class ProblemController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Показать форму создания проблемы
      *
      * @return Application|Factory|View
      */
@@ -66,7 +66,7 @@ class ProblemController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удалить проблему
      *
      * @param int $id
      *
@@ -80,6 +80,7 @@ class ProblemController extends Controller
     }
 
     /**
+     * Назначить исполнителя
      * @param AssignPerformerRequest $request
      *
      * @return RedirectResponse
@@ -92,6 +93,7 @@ class ProblemController extends Controller
     }
 
     /**
+     * Перевести проблему в статус "В работе"
      * @param MakeProblemUnderwayRequest $request
      *
      * @return RedirectResponse
@@ -105,6 +107,7 @@ class ProblemController extends Controller
     }
 
     /**
+     * Сделать проблему "Выполненной"
      * @param MakeProblemDoneRequest $request
      *
      * @return RedirectResponse
@@ -118,6 +121,7 @@ class ProblemController extends Controller
     }
 
     /**
+     * Закрыть проблему
      * @param CloseProblemRequest $request
      *
      * @return RedirectResponse
@@ -131,6 +135,7 @@ class ProblemController extends Controller
     }
 
     /**
+     * Получить привязанные к исполнителю проблемы
      * @return Application|Factory|View
      */
     public function getAssignedProblems()

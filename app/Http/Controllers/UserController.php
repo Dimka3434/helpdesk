@@ -10,18 +10,31 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
+/**
+ * Class UserController
+ *
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
 
+    /**
+     * @var UserService
+     */
     private UserService $userService;
 
+    /**
+     * UserController constructor.
+     *
+     * @param UserService $userService
+     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
     /**
-     * Display a listing of the resource.
+     * Отображение списка пользователей
      *
      * @return Application|Factory|View
      */
@@ -33,7 +46,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Отображениеи формы создания польхователя
      *
      * @return Application|Factory|View
      */
@@ -43,7 +56,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Создание пользователя
      *
      * @param StoreUserRequest $request
      *
@@ -57,9 +70,9 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Получение и отображение пользователя
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return Application|Factory|View
      */
@@ -71,7 +84,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Обновление пользователя
      *
      * @param UpdateUserRequest $request
      * @param int $id
@@ -86,7 +99,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удалить пользователя
      *
      * @param int $id
      *

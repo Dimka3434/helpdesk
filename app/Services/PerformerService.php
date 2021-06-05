@@ -11,6 +11,9 @@ use App\Models\User;
  */
 class PerformerService
 {
+    /**
+     * @var User
+     */
     private User $model;
 
     /**
@@ -22,6 +25,7 @@ class PerformerService
     }
 
     /**
+     * Создание исполнителя
      * @param array $data
      */
     public function createPerformer(array $data)
@@ -31,6 +35,7 @@ class PerformerService
     }
 
     /**
+     * Обновление исполнителя
      * @param int $id
      * @param array $data
      */
@@ -42,6 +47,7 @@ class PerformerService
     }
 
     /**
+     * Удаление исполнителя
      * @param int $id
      *
      * @return bool|mixed|null
@@ -54,6 +60,7 @@ class PerformerService
     }
 
     /**
+     * Прикрепить к категории
      * @param int $id
      * @param int $categoryId
      *
@@ -65,6 +72,7 @@ class PerformerService
     }
 
     /**
+     * Открепить от категории
      * @param int $id
      * @param int $categoryId
      *

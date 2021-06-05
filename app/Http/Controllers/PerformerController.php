@@ -5,90 +5,70 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Performer\StorePerformerRequest;
 use App\Http\Requests\Performer\UpdatePerformerRequest;
 use App\Services\PerformerService;
+use Illuminate\Http\RedirectResponse;
 
+/**
+ * Class PerformerController
+ *
+ * @package App\Http\Controllers
+ */
 class PerformerController extends Controller
 {
+    /**
+     * @var PerformerService
+     */
     private PerformerService $performerService;
 
+    /**
+     * PerformerController constructor.
+     *
+     * @param PerformerService $performerService
+     */
     public function __construct(PerformerService $performerService)
     {
         $this->performerService = $performerService;
     }
 
     /**
-     * Display a listing of the resource.
+     * Создать исполнителя
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * @param StorePerformerRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePerformerRequest $request)
+    public function store(StorePerformerRequest $request): RedirectResponse
     {
         $this->performerService->createPerformer($request->validated());
+
+        return redirect()->back();
     }
 
     /**
-     * Display the specified resource.
+     * Обновление исполнителя
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @param UpdatePerformerRequest $request
+     * @param int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePerformerRequest $request, $id)
+    public function update(UpdatePerformerRequest $request, $id): RedirectResponse
     {
         $this->performerService->updatePerformer($id, $request->validated());
+
+        return redirect()->back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаление исполнителя
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): RedirectResponse
     {
         $this->performerService->deletePerformer($id);
+
+        return redirect()->back();
     }
 }

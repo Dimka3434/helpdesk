@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Problem\StoreProblemRequest;
 use App\Services\CategoryService;
 use App\Services\ProblemService;
-use App\Services\SubcategoryService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -24,7 +23,7 @@ class ComplainController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Отображение формы для создание заявки
      *
      * @return Application|Factory|View
      */
@@ -36,9 +35,9 @@ class ComplainController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Создание заявки
      *
-     * @param Request $request
+     * @param StoreProblemRequest $request
      *
      * @return RedirectResponse
      */
@@ -53,7 +52,7 @@ class ComplainController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Отображение заявки
      *
      * @param Request $request
      *
@@ -71,18 +70,5 @@ class ComplainController extends Controller
         $categories = $this->categoryService->getAllWithSubcategories();
 
         return view('pages.complains.show', ['problem' => $problem, 'categories' => $categories]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 }

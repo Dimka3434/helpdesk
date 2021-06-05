@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -22,7 +21,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Оторбражение старниы с настройками
      *
      * @return Application|Factory|View
      */
@@ -34,19 +33,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Создание категории
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
+     * @param StoreCategoryRequest $request
      *
      * @return RedirectResponse
      */
@@ -58,41 +47,22 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Обновление категории
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @param UpdateCategoryRequest $request
+     * @param int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateCategoryRequest $request, $id)
+    public function update(UpdateCategoryRequest $request, int $id): RedirectResponse
     {
         $this->categoryService->updateCategory($id, $request->validated());
+
+        return redirect()->back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаление категории
      *
      * @param int $id
      *

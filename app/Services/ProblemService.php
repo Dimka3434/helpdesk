@@ -99,7 +99,7 @@ class ProblemService
      * @param int $id
      * @param string $commentary
      */
-    public function makeProblemDone(int $id, string $commentary='')
+    public function makeProblemDone(int $id, string $commentary = '')
     {
         $problem = $this->model->newQuery()
             ->where('id', $id)

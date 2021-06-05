@@ -6,21 +6,33 @@ use App\Http\Requests\Subcategory\StoreSubcategoryRequest;
 use App\Http\Requests\Subcategory\UpdateSubcategoryRequest;
 use App\Services\SubcategoryService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
+/**
+ * Class SubcategoryController
+ *
+ * @package App\Http\Controllers
+ */
 class SubcategoryController extends Controller
 {
+    /**
+     * @var SubcategoryService
+     */
     private SubcategoryService $subcategoryService;
 
+    /**
+     * SubcategoryController constructor.
+     *
+     * @param SubcategoryService $subcategoryService
+     */
     public function __construct(SubcategoryService $subcategoryService)
     {
         $this->subcategoryService = $subcategoryService;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Создать подкатегорию
      *
-     * @param  Request  $request
+     * @param StoreSubcategoryRequest $request
      *
      * @return RedirectResponse
      */
@@ -32,43 +44,25 @@ class SubcategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Обновить подкатегорию
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @param UpdateSubcategoryRequest $request
+     * @param int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateSubcategoryRequest $request, $id)
+    public function update(UpdateSubcategoryRequest $request, int $id): RedirectResponse
     {
         $this->subcategoryService->updateCategory($id, $request->validated());
+
+        return redirect()->back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удалить подкатегорию
      *
      * @param int $id
+     * @param int $subcategoryId
      *
      * @return RedirectResponse
      */

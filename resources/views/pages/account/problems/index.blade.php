@@ -18,10 +18,10 @@
                 <div class="card w-100 mt-3">
                     <div class="card-body">
                         <ul>
-                            <li><strong>Категория:</strong>{{ $problem->subcategory->title }}</li>
-                            <li><strong>Местоположение:</strong>{{ $problem->place }}</li>
-                            <li><strong>Описание:</strong>{{ $problem->description }}</li>
-                            <li><strong>Статус заявки:</strong>
+                            <li><strong>Категория: </strong>{{ $problem->subcategory->title }}</li>
+                            <li><strong>Местоположение: </strong>{{ $problem->place }}</li>
+                            <li><strong>Описание: </strong>{{ $problem->description }}</li>
+                            <li><strong>Статус заявки: </strong>
                                 @switch($problem->status)
                                     @case(0)
                                     <span class="text-danger">Не в работе</span>
@@ -35,13 +35,10 @@
                                     @case(3)
                                     <span class="text-success">Выполнено</span>
                                     @break
-                                    @case(3)
-                                    <span class="">Отклонено</span>
-                                    @break
                                 @endswitch
                             </li>
                             @if($problem->status && $problem->performer)
-                                <li><strong>Исполнитель:</strong> {{ $problem->performer->name }}</li>
+                                <li><strong>Исполнитель: </strong> {{ $problem->performer->name }}</li>
                             @endif
                         </ul>
                     </div>
