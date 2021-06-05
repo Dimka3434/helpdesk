@@ -73,7 +73,7 @@
                                         </li>
                                     </ul>
                                     @endif
-                                    @if(auth()->user()->type === 0 || auth()->user()->type === 1)
+                                    @if(auth()->user()->type === 1)
                                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                                             <span class="fs-5 fw-bolder">Обслуживание</span>
                                             <a class="link-secondary" href="#" aria-label="Add a new report">
@@ -83,7 +83,8 @@
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
                                                 <a class="nav-link" href="/performer/problems">
-                                                    Поступившие заяввки @if($assigned_problems_count)<span class="text-danger">({{$assigned_problems_count}})</span>@endif
+                                                    Поступившие заяввки @if($assigned_problems_count)<span
+                                                        class="text-danger">({{$assigned_problems_count}})</span>@endif
                                                 </a>
                                             </li>
                                         </ul>
@@ -106,13 +107,14 @@
                         @endauth
                     </div>
             </nav>
-            <main class="col-md- ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                     @yield('content')
                 </div>
             </main>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
