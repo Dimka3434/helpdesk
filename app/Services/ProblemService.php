@@ -28,6 +28,8 @@ class ProblemService
     }
 
     /**
+     * Создать проблему
+     *
      * @param int $userId
      * @param array $data
      *
@@ -44,6 +46,8 @@ class ProblemService
     }
 
     /**
+     * Удалить проблему
+     *
      * @param int $id
      *
      * @return bool|mixed|null
@@ -56,6 +60,8 @@ class ProblemService
     }
 
     /**
+     * Перевести проблему в статус "Ждет подтверждения" и закрепляем за исполнителем
+     *
      * @param int $id
      * @param int $performerId
      * @param int $priority
@@ -73,6 +79,8 @@ class ProblemService
     }
 
     /**
+     * Перевести проблему в статус "В работе"
+     *
      * @param int $id
      */
     public function makeProblemUnderway(int $id)
@@ -86,6 +94,8 @@ class ProblemService
     }
 
     /**
+     * Перевести проблему в статус "На проверке"
+     *
      * @param int $id
      * @param string $commentary
      */
@@ -101,22 +111,26 @@ class ProblemService
     }
 
     /**
+     * Перевести проблему в статус "Закрыто"
+     *
      * @param int $id
      * @param string $commentary
      *
      * @return int
      */
-    public function closeProblem(int $id, string $commentary=''): int
+    public function closeProblem(int $id, string $commentary = ''): int
     {
         return $this->model->newQuery()
             ->where('id', $id)
             ->update([
                 'status' => Problem::STATUS_CLOSED,
-                'commentary' => $commentary
+                'commentary' => $commentary,
             ]);
     }
 
     /**
+     * Получить заявку по айди
+     *
      * @param int $id
      *
      * @return Builder|Builder[]|Collection|Model|null
@@ -127,9 +141,11 @@ class ProblemService
     }
 
     /**
+     * Получить все заявки (либо завершенные, либо на проверке)
+     *
      * @return Builder[]|Collection
      */
-    public function getAll($type='checking')
+    public function getAll($type = 'checking')
     {
         $problems = $this->model->newQuery()
             ->when($type === 'checking', function ($query) {
@@ -138,6 +154,7 @@ class ProblemService
             ->when($type === 'done', function ($query) {
                 return $query->where('status', Problem::STATUS_CLOSED);
             })
+            ->orderByDesc('created_at')
             ->get();
 
         foreach ($problems as $problem) {
@@ -153,6 +170,8 @@ class ProblemService
     }
 
     /**
+     * Получить список проблем пользователя
+     *
      * @param int|null $userId
      *
      * @return Builder[]|Collection
@@ -161,10 +180,13 @@ class ProblemService
     {
         return $this->model->newQuery()
             ->where('user_id', $userId)
+            ->orderByDesc('created_at')
             ->get();
     }
 
     /**
+     * Получить количество открытых заявок (для сайдбара)
+     *
      * @return int
      */
     public function getOpenedProblemsCount(): int
@@ -175,6 +197,8 @@ class ProblemService
     }
 
     /**
+     * Получить количество заявок в работе для исполнителя (для сайдбара)
+     *
      * @param int $performerId
      *
      * @return int
@@ -188,6 +212,8 @@ class ProblemService
     }
 
     /**
+     * Получить заявки в работе закрепленных за исполнителем
+     *
      * @param int $performerId
      *
      * @return Builder[]|Collection
@@ -197,6 +223,7 @@ class ProblemService
         return $this->model->newQuery()
             ->where('performer_id', $performerId)
             ->where('status', Problem::STATUS_ASSIGNED_PERFORMER)
+            ->orderByDesc('created_at')
             ->get();
     }
 }

@@ -51,7 +51,7 @@
                             @if(isset($problem->time_spent))
                                 <li>Затрачено времени: {{$problem->time_spent}} часов</li>
                             @endif
-                            @if(isset($problem->priority))
+                            @if($problem->priority)
                                 <li>
                                     Приоритет:
                                     @if($problem->priority == 0)Низкий@endif
