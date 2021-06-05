@@ -29,7 +29,7 @@
                                     <span class="text-danger">Не в работе</span>
                                     @break
                                     @case(1)
-                                    <span class="text-info">В работе</span>
+                                    <span class="text-info">Ждет подтверждения</span>
                                     @break
                                     @case(2)
                                     <span class="text-warning">На проверке</span>

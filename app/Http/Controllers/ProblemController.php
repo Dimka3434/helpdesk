@@ -50,9 +50,9 @@ class ProblemController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $problems = $this->problemService->getAll();
+        $problems = $this->problemService->getAll($request->type ?? 'checking');
         $performers = $this->userService->getPerformers();
 
         return view('pages.problems.index', ['problems' => $problems, 'performers' => $performers]);

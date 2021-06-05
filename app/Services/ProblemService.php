@@ -129,9 +129,15 @@ class ProblemService
     /**
      * @return Builder[]|Collection
      */
-    public function getAll()
+    public function getAll($type='checking')
     {
         $problems = $this->model->newQuery()
+            ->when($type === 'checking', function ($query) {
+                return $query->where('status', Problem::STATUS_OPENED)->orWhere('status', Problem::STATUS_CHECKING);
+            })
+            ->when($type === 'done', function ($query) {
+                return $query->where('status', Problem::STATUS_CLOSED);
+            })
             ->get();
 
         foreach ($problems as $problem) {
@@ -182,14 +188,15 @@ class ProblemService
     }
 
     /**
-     * @param int $id
+     * @param int $performerId
      *
      * @return Builder[]|Collection
      */
-    public function getAssignedProblemsByPerformerId(int $id)
+    public function getAssignedProblemsByPerformerId(int $performerId)
     {
         return $this->model->newQuery()
-            ->where('id', $id)
+            ->where('performer_id', $performerId)
+            ->where('status', Problem::STATUS_ASSIGNED_PERFORMER)
             ->get();
     }
 }

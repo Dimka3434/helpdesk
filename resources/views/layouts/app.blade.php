@@ -100,11 +100,6 @@
                                                 Мои заявки
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/account/settings">
-                                                Настройки
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                         </div>

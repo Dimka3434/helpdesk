@@ -18,19 +18,16 @@
                             <li>Статус заявки:
                                 @switch($problem->status)
                                     @case(0)
-                                    <span class="text-danger">Не в работе</span>
+                                    <span class="text-danger">Открыто</span>
                                     @break
                                     @case(1)
-                                    <span class="text-info">В работе</span>
+                                    <span class="text-info">Ждет подтверждения</span>
                                     @break
                                     @case(2)
                                     <span class="text-warning">На проверке</span>
                                     @break
                                     @case(3)
                                     <span class="text-success">Выполнено</span>
-                                    @break
-                                    @case(3)
-                                    <span class="">Отклонено</span>
                                     @break
                                     @case(4)
                                     <span class="">В работе</span>
