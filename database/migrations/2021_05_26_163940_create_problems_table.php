@@ -26,6 +26,8 @@ class CreateProblemsTable extends Migration
             $table->unsignedTinyInteger('status')->default(Problem::STATUS_OPENED);
             $table->unsignedTinyInteger('priority')->default(0);
             $table->string('commentary')->nullable();
+            $table->timestamp('work_started_at')->nullable();
+            $table->timestamp('work_ended_at')->nullable();
             $table->timestamps();
         });
     }

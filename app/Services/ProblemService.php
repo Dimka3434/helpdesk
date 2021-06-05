@@ -75,12 +75,44 @@ class ProblemService
     /**
      * @param int $id
      */
-    public function makeProblemDone(int $id)
+    public function makeProblemUnderway(int $id)
+    {
+        $problem = $this->model->newQuery()
+            ->where('id', $id)
+            ->update([
+                'status' => Problem::STATUS_UNDERWAY,
+                'work_started_at' => now(),
+            ]);
+    }
+
+    /**
+     * @param int $id
+     * @param string $commentary
+     */
+    public function makeProblemDone(int $id, string $commentary)
     {
         $problem = $this->model->newQuery()
             ->where('id', $id)
             ->update([
                 'status' => Problem::STATUS_CHECKING,
+                'work_ended_at' => now(),
+                'commentary' => $commentary,
+            ]);
+    }
+
+    /**
+     * @param int $id
+     * @param string $commentary
+     *
+     * @return int
+     */
+    public function closeProblem(int $id, string $commentary=''): int
+    {
+        return $this->model->newQuery()
+            ->where('id', $id)
+            ->update([
+                'status' => Problem::STATUS_CLOSED,
+                'commentary' => $commentary
             ]);
     }
 
@@ -99,8 +131,19 @@ class ProblemService
      */
     public function getAll()
     {
-        return $this->model->newQuery()
+        $problems = $this->model->newQuery()
             ->get();
+
+        foreach ($problems as $problem) {
+            if (
+                ($problem->status === Problem::STATUS_CLOSED || $problem->status === Problem::STATUS_CHECKING)
+                && ($problem->work_started_at || $problem->work_ended_at)
+            ) {
+                $problem->time_spent = $problem->work_started_at->diffInHours($problem->work_ended_at);
+            }
+        }
+
+        return $problems;
     }
 
     /**
@@ -140,17 +183,13 @@ class ProblemService
 
     /**
      * @param int $id
-     * @param string $commentary
      *
-     * @return int
+     * @return Builder[]|Collection
      */
-    public function closeProblem(int $id, string $commentary=''): int
+    public function getAssignedProblemsByPerformerId(int $id)
     {
         return $this->model->newQuery()
             ->where('id', $id)
-            ->update([
-                'status' => Problem::STATUS_CLOSED,
-                'commentary' => $commentary
-            ]);
+            ->get();
     }
 }

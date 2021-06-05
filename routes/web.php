@@ -25,12 +25,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
     Route::apiResource('users', UserController::class);
 
-    Route::put('close', [ProblemController::class, 'closeProblem'])->name('problems.close');
+    Route::post('problems/{id}/underway', [ProblemController::class, 'makeProblemUnderway'])->name('problems.underway');
+    Route::post('problems/{id}/done', [ProblemController::class, 'makeProblemDone'])->name('problems.done');
+    Route::post('problems/{id}/close', [ProblemController::class, 'closeProblem'])->name('problems.close');
     Route::put('problems/{id}/performer', [ProblemController::class, 'assignPerformer'])->name('problems.assign_performer');
     Route::apiResource('problems', ProblemController::class);
 
     Route::apiResource('categories/{id}/subcategories', SubcategoryController::class);
     Route::apiResource('categories', CategoryController::class);
+
+    Route::prefix('performer')->name('performers.')->group(function () {
+        Route::get('problems', [ProblemController::class, 'getAssignedProblems']);
+    });
 
     Route::prefix('/account')->namespace('Auth')->name('account.')->group(function () {
         Route::prefix('/problems')->name('problems.')->group(function () {

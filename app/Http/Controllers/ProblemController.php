@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CloseProblemRequest;
+use App\Http\Requests\MakeProblemDoneRequest;
+use App\Http\Requests\MakeProblemUnderwayRequest;
 use App\Http\Requests\Problem\AssignPerformerRequest;
 use App\Http\Requests\Problem\StoreProblemRequest;
 use App\Http\Requests\Problem\UpdateProblemRequest;
@@ -67,40 +69,6 @@ class ProblemController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(int $id): Response
-    {
-        return view('pages.problems.show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(UpdateProblemRequest $request, $id)
-    {
-
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -127,6 +95,32 @@ class ProblemController extends Controller
     }
 
     /**
+     * @param MakeProblemUnderwayRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function makeProblemUnderway(MakeProblemUnderwayRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->problemService->makeProblemUnderway($data['problem_id']);
+
+        return redirect()->route('problems.index');
+    }
+
+    /**
+     * @param MakeProblemDoneRequest $request
+     *
+     * @return RedirectResponse
+     */
+    public function makeProblemDone(MakeProblemDoneRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->problemService->makeProblemDone($data['problem_id'], $data['commentary']);
+
+        return redirect()->route('problems.index');
+    }
+
+    /**
      * @param CloseProblemRequest $request
      *
      * @return RedirectResponse
@@ -137,5 +131,17 @@ class ProblemController extends Controller
         $this->problemService->closeProblem($data['problem_id'], $data['commentary']);
 
         return redirect()->route('problems.index');
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function getAssignedProblems()
+    {
+        $problems = $this->problemService->getAssignedProblemsByPerformerId(
+            auth()->id()
+        );
+
+        return view('pages.performers.problems.index', ['problems' => $problems]);
     }
 }

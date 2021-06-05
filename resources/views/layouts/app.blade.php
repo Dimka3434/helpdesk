@@ -82,7 +82,7 @@
                                         </h6>
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/account/performer/problems">
+                                                <a class="nav-link" href="/performer/problems">
                                                     Поступившие заяввки @if($assigned_problems_count)<span class="text-danger">({{$assigned_problems_count}})</span>@endif
                                                 </a>
                                             </li>

@@ -7,6 +7,14 @@
 @section('content')
     <div class="row justify-content-center w-100">
         <div class="col-md-12">
+            <form action="{{ route('problems.index') }}" method="GET">
+                <select class="form-control d-inline w-25" name="type">
+                    <option value="checking">Ожидающие принятие</option>
+                    <option value="done">Выполненные</option>
+                    <option type="all">Все</option>
+                </select>
+                <button class="btn btn-success text-white">Выбрать</button>
+            </form>
             @foreach($problems as $problem)
                 <div class="card w-100 mt-3">
                     <div class="card-body">
@@ -29,16 +37,23 @@
                                     @case(3)
                                     <span class="text-success">Выполнено</span>
                                     @break
-                                    @case(3)
-                                    <span class="">Отклонено</span>
+                                    @case(4)
+                                    <span class="">В работе</span>
                                     @break
                                 @endswitch
                             </li>
+                            @if($problem->commentary)
+                                <li>Коментарий: {{ $problem->commentary }}</li>
+                            @endif
                             @if($problem->status && $problem->performer)
-                                Исполнитель {{ $problem->performer->name }}
+                                <li>Исполнитель: <a href="{{route('users.show', $problem->performer->id)}}">{{ $problem->performer->name }}</a></li>
+                            @endif
+                            @if(isset($problem->time_spent))
+                                <li>Затрачено времени: {{$problem->time_spent}} часов</li>
                             @endif
                         </ul>
                     </div>
+                    @if ($problem->status === 0 || $problem->status === 1)
                     <div class="card-footer">
                         <div class="inline-form">
                             <form action="{{ route('problems.assign_performer', $problem->id) }}" method="POST">
@@ -56,15 +71,15 @@
                                     <option @if($problem->priority == 1) selected @endif value="1">Средний</option>
                                     <option @if($problem->priority == 2) selected @endif value="2">Высокий</option>
                                 </select>
-                                <button class="btn btn-success text-white">@if($problem->performer_id) Переназначить @else Назначить @endif</button>
+                                <button class="btn btn-success text-white">@if($problem->status === 1) Переназначить @else Назначить @endif</button>
                             </form>
                         </div>
                     </div>
-                    @if(!$problem->performer_id)
+                    @endif
+                    @if ($problem->status === 2)
                     <div class="card-footer">
                         <div class="inline-form">
-                            <form action="{{ route('problems.close') }}" method="POST">
-                                @method("PUT")
+                            <form action="{{ route('problems.close', $problem->id) }}" method="POST">
                                 @csrf
                                 <div class="input-group w-50">
                                     <textarea type="text" name="commentary" class="form-control" placeholder="Введите коментарий"></textarea>

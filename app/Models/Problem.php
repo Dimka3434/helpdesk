@@ -14,12 +14,15 @@ class Problem extends Model
     const STATUS_ASSIGNED_PERFORMER = 1;
     const STATUS_CHECKING = 2;
     const STATUS_CLOSED = 3;
+    const STATUS_UNDERWAY = 4;
 
     const LOW_PRIORITY = 0;
     const MIDDLE_PRIORITY = 1;
     const HIGH_PRIORITY = 2;
 
     protected $fillable = ['user_id', 'performer_id',  'subcategory_id', 'place', 'description', 'commentary'];
+
+    protected $dates = ['work_started_at', 'work_ended_at'];
 
     public function subcategory(): BelongsTo
     {
