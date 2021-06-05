@@ -125,7 +125,7 @@ class ProblemController extends Controller
     public function closeProblem(CloseProblemRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $this->problemService->closeProblem($data['problem_id'], $data['commentary']);
+        $this->problemService->closeProblem($data['problem_id'], $data['commentary'] ?? '');
 
         return redirect()->route('problems.index');
     }
