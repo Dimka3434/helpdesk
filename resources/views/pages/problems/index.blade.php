@@ -26,11 +26,11 @@
                 <div class="card w-100 mt-3">
                     <div class="card-body">
                         <ul>
-                            <li><strong>Пользователь:</strong> <a href="{{route('users.show', $problem->user->id)}}">{{ $problem->user->name }}</a></li>
-                            <li><strong>Категория:</strong> {{ $problem->subcategory->title }}</li>
-                            <li><strong>Местоположение:</strong> {{ $problem->place }}</li>
-                            <li><strong>Описание:</strong> {{ $problem->description }}</li>
-                            <li><strong>Статус заявки:</strong>
+                            <li><strong>Пользователь: </strong> <a href="{{route('users.show', $problem->user->id)}}">{{ $problem->user->name }}</a></li>
+                            <li><strong>Категория: </strong> {{ $problem->subcategory->title }}</li>
+                            <li><strong>Местоположение: </strong> {{ $problem->place }}</li>
+                            <li><strong>Описание: </strong> {{ $problem->description }}</li>
+                            <li><strong>Статус заявки: </strong>
                                 @switch($problem->status)
                                     @case(0)
                                     <span class="text-danger">Не в работе</span>
@@ -50,17 +50,17 @@
                                 @endswitch
                             </li>
                             @if($problem->commentary)
-                                <li><strong>Коментарий:</strong> {{ $problem->commentary }}</li>
+                                <li><strong>Коментарий: </strong> {{ $problem->commentary }}</li>
                             @endif
                             @if($problem->status && $problem->performer)
-                                <li><strong>Исполнитель:</strong> <a href="{{route('users.show', $problem->performer->id)}}">{{ $problem->performer->name }}</a></li>
+                                <li><strong>Исполнитель: </strong> <a href="{{route('users.show', $problem->performer->id)}}">{{ $problem->performer->name }}</a></li>
                             @endif
                             @if(isset($problem->time_spent))
-                                <li><strong>Затрачено времени:</strong> {{$problem->time_spent}} часов</li>
+                                <li><strong>Затрачено времени: </strong> {{$problem->time_spent}} часов</li>
                             @endif
                             @if($problem->priority)
                                 <li>
-                                    <strong>Приоритет:</strong>
+                                    <strong>Приоритет: </strong>
                                     @if($problem->priority == 0)Низкий@endif
                                     @if($problem->priority == 1)Средний@endif
                                     @if($problem->priority == 2)Высокий@endif
