@@ -193,6 +193,7 @@ class ProblemService
     {
         return $this->model->newQuery()
             ->where('status', Problem::STATUS_OPENED)
+            ->orWhere('status', Problem::STATUS_CHECKING)
             ->count();
     }
 
